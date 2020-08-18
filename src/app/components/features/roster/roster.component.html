@@ -1,0 +1,20 @@
+<h1>Roster</h1>
+
+<mat-table [dataSource]="memberList | async" class="mat-elevation-z10">
+  <ng-container *ngFor="let col of tableCols" [matColumnDef]="col.id">
+    <mat-header-cell *matHeaderCellDef>{{ col.label }}</mat-header-cell>
+    <mat-cell *matCellDef="let item">
+      <ng-container [ngSwitch]="col.id">
+        <ng-container *ngSwitchCase="'birthDate'">
+          {{ item[col.id] | momentFormat: "MMM DD, YYYY" }}
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          {{ item[col.id] }}
+        </ng-container>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="tableHeaders"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: tableHeaders"></mat-row>
+</mat-table>
