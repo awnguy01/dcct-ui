@@ -1,6 +1,12 @@
 <h1>Roster</h1>
-
-<mat-table [dataSource]="memberList | async" class="mat-elevation-z10">
+<mat-toolbar>
+  <button mat-raised-button color="primary">Add Member</button>
+</mat-toolbar>
+<mat-table
+  [dataSource]="memberList | async"
+  class="mat-elevation-z10"
+  multiTemplateDataRows
+>
   <ng-container *ngFor="let col of tableCols" [matColumnDef]="col.id">
     <mat-header-cell *matHeaderCellDef>{{ col.label }}</mat-header-cell>
     <mat-cell *matCellDef="let item">
@@ -15,6 +21,30 @@
     </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="optionsRow">
+    <mat-cell *matCellDef="let item">
+      <div
+        class="options-panel"
+        [@optionsExpand]="isSelectedMember(item) ? 'expanded' : 'collapsed'"
+      >
+        <button mat-raised-button color="warn">Delete</button>
+        <button mat-raised-button (click)="setSelectedMember(undefined)">
+          Cancel
+        </button>
+        <button mat-raised-button color="primary">Edit</button>
+      </div>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="tableHeaders"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: tableHeaders"></mat-row>
+  <mat-row
+    *matRowDef="let item; columns: tableHeaders"
+    class="row--member"
+    [class.expanded-row]="isSelectedMember(item)"
+    (click)="setSelectedMember(item)"
+  ></mat-row>
+  <mat-row
+    *matRowDef="let expandRow; columns: ['optionsRow']"
+    class="row--options"
+  ></mat-row>
 </mat-table>

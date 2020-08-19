@@ -1,4 +1,34 @@
 :host {
   display: block;
   padding: 1rem;
+  mat-toolbar {
+    justify-content: flex-end;
+    background: none;
+  }
+
+  .row {
+    &--member {
+      &:hover {
+        cursor: pointer;
+        background-color: #efefef;
+      }
+      td {
+        border-bottom-width: 0;
+      }
+    }
+    &--options {
+      min-height: auto;
+      button {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .options-panel {
+    display: flex;
+    overflow: hidden;
+    flex: auto;
+    justify-content: flex-end;
+    padding: 0.5rem;
+  }
 }
