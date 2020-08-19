@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MemberService } from '../../../services/member.service';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { Member } from '../../classes/models/member';
-import { DataTableColumn } from '../../classes/models/data-table-column';
+import { BehaviorSubject } from 'rxjs';
+import { Member } from '../../../classes/models/member';
+import { DataTableColumn } from '../../../classes/models/data-table-column';
 import { tap } from 'rxjs/operators';
 
 const TABLE_COLS: DataTableColumn[] = [
