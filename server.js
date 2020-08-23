@@ -6,7 +6,7 @@ const port = 8080;
 
 app.use(
   "/api",
-  createProxyMiddleware({ target: "http://localhost:8084", changeOrigin: true })
+  createProxyMiddleware({ target: "http://198.211.104.107", changeOrigin: true })
 );
 
 app.use(express.static(path.join(__dirname, "dist/dcct-ui")));

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberService } from '../../../services/member.service';
 import { BehaviorSubject } from 'rxjs';
-import { Member } from '../../../classes/models/member';
+import { MemberObject } from '../../../classes/models/member-object';
 import { DataTableColumn } from '../../../classes/models/data-table-column';
 import { tap } from 'rxjs/operators';
 import {
@@ -14,12 +14,18 @@ import {
 
 const TABLE_COLS: DataTableColumn[] = [
   { id: 'firstName', label: 'First' },
+  { id: 'middleName', label: 'Middle' },
   { id: 'lastName', label: 'Last' },
+  { id: 'birthDate', label: 'Birthday' },
+  { id: 'saintName', label: 'Saint' },
+  // { id: 'phonePrimary', label: 'Primary Phone' },
+  // { id: 'phoneSecondary', label: 'Alt Phone' },
+  // { id: 'email', label: 'Email' },
+  // { id: 'address', label: 'Address' },
   { id: 'nganh', label: 'Nganh' },
   { id: 'cap', label: 'Cap' },
-  { id: 'birthDate', label: 'Birthdate' },
-  { id: 'phone', label: 'Phone' },
-  { id: 'email', label: 'Email' },
+  { id: 'joinDate', label: 'Joined' },
+  { id: 'isActive', label: 'Active' },
 ];
 
 @Component({
@@ -43,24 +49,24 @@ const TABLE_COLS: DataTableColumn[] = [
 export class RosterComponent implements OnInit {
   tableCols: DataTableColumn[] = TABLE_COLS;
   tableHeaders: string[] = TABLE_COLS.map((col: DataTableColumn) => col.id);
-  selectedMember = new BehaviorSubject<Member>(undefined);
+  selectedMember = new BehaviorSubject<MemberObject>(undefined);
 
-  memberList = new BehaviorSubject<Member[]>([]);
+  memberList = new BehaviorSubject<MemberObject[]>([]);
 
   constructor(readonly memberSvc: MemberService) {}
 
   ngOnInit(): void {
     this.memberSvc
       .getMembers()
-      .pipe(tap((list: Member[]) => this.memberList.next(list)))
+      .pipe(tap((list: MemberObject[]) => this.memberList.next(list)))
       .subscribe();
   }
 
-  setSelectedMember(member: Member): void {
+  setSelectedMember(member: MemberObject): void {
     this.selectedMember.next(member);
   }
 
-  isSelectedMember(member: Member): boolean {
+  isSelectedMember(member: MemberObject): boolean {
     return member === this.selectedMember.getValue();
   }
 }
